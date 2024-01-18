@@ -55,6 +55,7 @@ client.on('authenticated', (session) => {
     });
 });
 */
+const { MessageMedia } = require('whatsapp-web.js');
 
 client.on('auth_failure', msg => {
     // Fired if session restore was unsuccessfull
@@ -76,6 +77,10 @@ async function deploy_all() {
         const isRegistered = await client.isRegisteredUser(final_number);
         if (isRegistered) {
             const msg = await client.sendMessage(final_number, message);
+
+            const media = MessageMedia.fromFilePath('./qwerty.pdf');
+            client.sendMessage(final_number, media);
+
             console.log(`${contact} Sent`);
             counter.success++;
             /*
